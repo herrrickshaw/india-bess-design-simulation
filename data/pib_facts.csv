@@ -1,0 +1,18 @@
+fact_id,pib_release_id,release_date,ministry,metric,value,unit,source_url,verification,notes
+PIB-2204118-A,2204118,2025-12-15,Power,BESS cost discovered in 2022-23 tenders at 2 cycles/day,10.18,INR/kWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,Rajya Sabha written reply
+PIB-2204118-B,2204118,2025-12-15,Power,BESS cost in recent competitive bidding without VGF at 2 cycles/day,2.1,INR/kWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,
+PIB-2204118-C,2204118,2025-12-15,Power,Same at expected 1.5 cycles/day,2.8,INR/kWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,
+PIB-2204118-D,2204118,2025-12-15,Power,Average solar tariff in recent tenders,2.5,INR/kWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,
+PIB-2204118-E,2204118,2025-12-15,Power,VGF scheme 1 capacity,13220,MWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,Outlay Rs 3760 cr
+PIB-2204118-F,2204118,2025-12-15,Power,VGF scheme 2 (PSDF) capacity,30,GWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,Rs 5400 cr; launched June 2025
+PIB-2204118-G,2204118,2025-12-15,Power,ISTS charge waiver for co-located BESS commissioned by,2028-06,date,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,12 years waiver; non-co-located graded 25% annual steps after June 2025
+PIB-2204118-H,2204118,2025-12-15,Heavy Industries,ACC PLI capacity,50,GWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2204118,read_from_primary,10 GWh earmarked grid-scale; outlay Rs 18100 cr
+PIB-2118325-A,2118325,2025-04-03,Power,VGF per MWh revised from,96,INR lakh/MWh,https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2118325,read_from_primary,
+PIB-2118325-B,2118325,2025-04-03,Power,VGF per MWh revised to (or 30% of capex whichever lower),46,INR lakh/MWh,https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2118325,read_from_primary,Disbursement 10% FC; 45% COD; 15%/yr x3
+PIB-2118325-C,2118325,2025-04-03,Power,NEP 2023 BESS requirement by 2031-32,236,GWh,https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2118325,read_from_primary,
+PIB-2246898-A,2246898,2026-03-30,Power,BESS under construction,35.8,GWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2246898&lang=2&reg=3,read_from_primary,
+PIB-2246898-B,2246898,2026-03-30,Power,Existing BESS >1 MWh all states,798,MWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2246898&lang=2&reg=3,read_from_primary,Bihar 282; Karnataka 150; Chhattisgarh 120; Rajasthan 100; Gujarat 77; Delhi 50; A&N 8; WB 6; UP 3; Lakshadweep 1
+PIB-2246898-C,2246898,2026-03-30,Power,NEP 2023 BESS requirement by 2030,208,GWh,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2246898&lang=2&reg=3,read_from_primary,
+PIB-2246898-D,2246898,2026-03-30,Power,CEA advisory solar co-location storage minimum,10,% of solar MW for >=2h,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2246898&lang=2&reg=3,read_from_primary,Feb 2025
+PIB-UNVERIFIED-1,not_retrieved,2026-11-04,Power,Cabinet VGF scheme 2026-31: total 92 GWh / Rs 14500 cr (30 GWh BESS; 40% DCR),,mixed,https://electricalmirror.net/cabinet-approves-rs-14500-crore-vgf-scheme-to-develop-92-gwh-of-grid-scale-energy-storage-40-domestic-content-mandated-for-bess/,secondary_only,PIB release itself NOT read - verify at pib.gov.in before relying
+PIB-UNVERIFIED-2,not_retrieved,unknown,Power,Lok Sabha reply: under construction 26729 MWh; under tendering 61013 MWh,,MWh,,secondary_only,From search summary; conflicts in date with 35.8 GWh above
