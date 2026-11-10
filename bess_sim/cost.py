@@ -110,6 +110,25 @@ def cashflows(c: CostInputs, tariff_lakh_per_mw_month: float):
     return flows
 
 
+def operating_lines(c: CostInputs, tariff_lakh_per_mw_month: float) -> dict:
+    """Per-year revenue, opex and augmentation (INR crore) plus net capex and depreciation.
+
+    Shared by the unlevered NPV (cashflows) and the lender view (debt.py) so the two
+    cannot drift apart.
+    """
+    cb = capex_breakdown(c)
+    capex = cb["total"] - vgf_crore(c, cb["total"])
+    rev, opex, aug = [], [], []
+    for y in range(1, c.life_years + 1):
+        r = tariff_lakh_per_mw_month * 12 * c.mw * LAKH / CRORE
+        r *= c.availability / 0.95 if c.availability < 0.95 else 1.0
+        rev.append(r)
+        opex.append(cb["total"] * c.opex_pct_capex * (1 + c.opex_escalation) ** (y - 1))
+        aug.append(cb["dc_block"] * c.augment_frac_of_dc * (1 - c.dc_price_decline_pa) ** y
+                   if y in c.augment_years else 0.0)
+    return {"capex": capex, "dep": capex / c.life_years, "rev": rev, "opex": opex, "aug": aug}
+
+
 def npv(rate: float, flows) -> float:
     return sum(f / (1 + rate) ** i for i, f in enumerate(flows))
 

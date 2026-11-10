@@ -6,6 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 from .cost import CostInputs, breakeven_tariff, capex_breakdown, implied_capex_per_mwh
+from .debt import DebtTerms, lender_view, max_gearing
 
 DATA = Path(__file__).resolve().parent.parent / "data"
 
@@ -34,8 +35,13 @@ def tariff_per_mwh_capacity(tariff: float, duration_h: float) -> float:
     return tariff / duration_h
 
 
-def analyse(vgf: bool = False) -> pd.DataFrame:
-    """Awarded tenders with a tariff and duration, vs the bottom-up cost model."""
+def analyse(vgf: bool = False, terms: DebtTerms | None = None) -> pd.DataFrame:
+    """Awarded tenders with a tariff and duration, vs the bottom-up cost model.
+
+    Adds the lender view (DSCR, equity IRR, DSRA, highest gearing a lender would accept)
+    at each awarded tariff, using IREDA-style terms unless `terms` is given.
+    """
+    terms = terms or DebtTerms()
     df = load_tenders()
     df = df[df["tariff_lakh_per_mw_month"].notna() & df["duration_h"].notna()
             & df["status"].isin(["awarded"])].copy()
@@ -46,7 +52,14 @@ def analyse(vgf: bool = False) -> pd.DataFrame:
         be = breakeven_tariff(inp)
         cap = capex_breakdown(inp)
         t = float(r["tariff_lakh_per_mw_month"])
+        lv = lender_view(inp, terms, t)
         rows.append({
+            "min_dscr": round(lv["min_dscr"], 2) if lv["min_dscr"] is not None else None,
+            "avg_dscr": round(lv["avg_dscr"], 2) if lv["avg_dscr"] is not None else None,
+            "equity_irr_pct": round(lv["equity_irr"] * 100, 1) if lv["equity_irr"] is not None else None,
+            "bankable_at_70pct": lv["meets_dscr"],
+            "max_gearing_pct": round(max_gearing(inp, terms, t) * 100),
+            "dsra_cr_per_100mw": round(lv["dsra_peak_cr"], 1),
             "tender_id": r["tender_id"], "date": r["date"], "duration_h": dur,
             "tariff": t,
             "tariff_per_mwh_cap": round(t / dur, 3),
