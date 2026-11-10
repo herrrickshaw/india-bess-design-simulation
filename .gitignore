@@ -4,3 +4,5 @@ __pycache__/
 data/raw_pib/*.html
 *.pyc
 data/raw_*/*.pdf
+data/raw_lending/
+data/raw_datacentre/

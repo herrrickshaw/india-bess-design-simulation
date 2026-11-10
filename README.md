@@ -31,7 +31,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 `tenders.csv`, `players.csv`, `pib_facts.csv`, `datacentre_facts.csv`. Each row carries `source_url` and a `confidence` or
 `verification` tag. `data/raw_pib/*.txt` holds extracted text of the three PIB releases read directly.
-PIB blocks WebFetch; plain `curl` with a browser User-Agent works.
+Full-text extracts of third-party reports (IREDA, SBI, Invest India) are deliberately not committed; the facts taken from them are in the CSVs with page-level URLs. PIB blocks WebFetch; plain `curl` with a browser User-Agent works.
 
 ## Know before trusting any output
 

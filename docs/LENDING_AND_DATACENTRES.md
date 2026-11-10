@@ -5,8 +5,8 @@ Re-run: `python scripts/run_tender_analysis.py` (lender sections at the end) and
 
 ## 1. Lending criteria as implemented
 
-Source: IREDA financing norms, issue 33, updated 12 Jun 2026 (`data/raw_lending/ireda_norms.txt`;
-BESS policy table at the document's p. 92). It is the only lender document I could read in full.
+Source: IREDA financing norms, issue 33, updated 12 Jun 2026 ([PDF](https://www.ireda.in/IredaWebPortal/documents/loan-products/financing-norms.pdf);
+BESS policy table at the document's p. 92). The text extract is kept local only (third-party document); re-create it with `curl` and `pdftotext -layout`. It is the only lender document I could read in full.
 No published BESS terms from SBI, PFC or REC turned up.
 
 | Term | IREDA | In the model |
@@ -51,7 +51,7 @@ against a real term sheet before using these numbers for a bid.
 
 ## 3. Data-centre integration
 
-### Demand side (read directly from SBI Apr 2026 and Invest India Oct 2026, `data/datacentre_facts.csv`)
+### Demand side (read directly from the [SBI Apr 2026 report](https://sbi.bank.in/documents/57189647/58231607/Sector+Report+DataCentre.pdf/f1919592-ee66-b50b-ea20-75fbb27c9bb5?t=1779885206866) and [Invest India Oct 2026 paper](https://static.investindia.gov.in/s3fs-public/2026-10/latest-news-India-Data-Centre-Growth-Story.pdf); facts in `data/datacentre_facts.csv`; full-text extracts kept local only)
 
 - Operational capacity ≈ 1.8 GW (H1 2026), 3.9 GW under development, 5.6 GW by 2030 (base) or ≈ 8 GW
   (accelerated). Other forecasts: SBI > 6.5 GW, Cushman & Wakefield ≈ 4.2 GW, Jefferies ≈ 8 GW.
