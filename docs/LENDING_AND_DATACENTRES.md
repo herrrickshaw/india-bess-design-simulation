@@ -31,23 +31,24 @@ interest during construction ignored.
 
 ## 2. What the lender view says about the awards (2h unless stated)
 
+Costs calibrated to public price anchors ([CALIBRATION.md](CALIBRATION.md)); 70% gearing, 12-year tenor.
+
 | Case | Result |
 |---|---|
-| Tariff that passes DSCR at 70% gearing | **3.70** lakh/MW/month (2h), 6.74 (4h) |
-| Tariff that also gives 14% equity IRR | **4.01** (2h), 7.27 (4h); equity IRR binds, not DSCR |
-| Same with VGF ₹46 lakh/MWh | 2.85 / 3.02 (2h); 5.22 / 5.50 (4h) |
-| Awarded 2h tariffs (2.32–2.40), no VGF | min DSCR ≈ 0.7, equity IRR ≈ −8% |
-| Same, with VGF | min DSCR ≈ 0.95–0.99, equity IRR ≈ 2–3.5% |
-| Highest gearing a lender would accept at those tariffs | ≈ 40–42% (no VGF), ≈ 54–57% (VGF) |
-| Equipment price (DC block, USD/kWh) that makes the 2h awards pass DSCR at 70% | ≈ 36–38 (no VGF), ≈ 53–55 (VGF); modelled Sep-2026 price is 69.4, China LFP cell alone 54.4 |
+| Tariff that passes DSCR at 70% gearing | **5.09** lakh/MW/month (2h), 9.48 (4h) |
+| Tariff that also meets the 15% equity hurdle | **5.62** (2h), 10.49 (4h); the equity hurdle binds, not DSCR |
+| Same with VGF ₹46 lakh/MWh | 4.02 / 4.44 (2h); 7.39 / 8.13 (4h) |
+| Awarded 2h tariffs (2.32–2.40), no VGF | minimum DSCR 0.44–0.46, equity IRR ≈ −20% |
+| Same, with VGF | minimum DSCR 0.58–0.62, equity IRR ≈ −12% to −13% |
+| Highest gearing a lender would accept at those tariffs | ≈ 25–27% (no VGF), ≈ 34–36% (VGF) |
+| Total installed capex at which the 2h awards pass DSCR at 70% | ≈ ₹0.66–0.69 crore/MWh (no VGF), ≈ ₹0.88–0.91 (VGF); calibrated cost is 1.45, CTUIL benchmark 0.80 |
 
-**How to read this.** Projects are evidently being financed at these tariffs, so my inputs are
-probably harsher than what developers face: kit priced below the 69.4 benchmark, PCS and BoS
-cheaper than my placeholders, or lenders accepting sculpted debt, a longer tenor, or lower DSCR.
-Treat the table as "what must be true", not "the awards fail". The most useful single output is the last
-row: with VGF the 2h awards are financeable only if the whole DC block costs about what a bare Chinese
-cell costs. Calibrate `landed_uplift`, `pcs_mv_inr_per_kw`, `bos_epc_inr_per_kwh` and the debt terms
-against a real term sheet before using these numbers for a bid.
+**How to read this.** Projects are being financed at these tariffs, so either real costs sit near or below CTUIL's
+₹0.80 crore/MWh benchmark (with VGF the awards then clear DSCR at ≈ ₹0.9), or lenders and sponsors are accepting
+terms far looser than IREDA-style norms. The table says what must be true, not that the awards fail. An earlier
+version of this table used uncalibrated, lower costs and looked far more benign (minimum DSCR ≈ 0.7); the calibration
+removed that comfort. Replace the public-price anchors with real RFQ responses and a lender term sheet before using
+these numbers for a bid.
 
 ## 3. Data-centre integration
 
@@ -67,14 +68,14 @@ against a real term sheet before using these numbers for a bid.
 ### What storage can and cannot do for a data centre (modelled, synthetic RE profiles)
 
 100 MW IT load × PUE 1.4 = 140 MW, 1.23 TWh/yr, load factor ≈ 0.96. Hourly CFE (carbon-free energy
-matched hour by hour), 4h battery, ₹ figures use this repo's break-even capacity charge:
+matched hour by hour), 4h battery, ₹ figures use this repo's calibrated break-even capacity charge:
 
 | RE built (solar + wind) | RE energy ÷ load | CFE, no battery | 90% CFE needs | Adds to DC energy cost |
 |---|---|---|---|---|
 | 250 + 150 MW | 0.75x | 62% | unreachable (caps near 73%) | – |
-| 400 + 250 MW | 1.22x | 77% | 586 MWh / 146 MW | ₹0.98/kWh (₹0.74 with VGF) |
-| 500 + 300 MW | 1.50x | 82% | 371 MWh / 93 MW | ₹0.62/kWh (₹0.47) |
-| 600 + 400 MW | 1.89x | 88% | 87 MWh / 22 MW | ₹0.15/kWh (₹0.11) |
+| 400 + 250 MW | 1.22x | 77% | 586 MWh / 146 MW | ₹1.42/kWh (₹1.10 with VGF) |
+| 500 + 300 MW | 1.50x | 82% | 371 MWh / 93 MW | ₹0.90/kWh (₹0.69) |
+| 600 + 400 MW | 1.89x | 88% | 87 MWh / 22 MW | ₹0.21/kWh (₹0.16) |
 
 1. **Storage cannot beat the energy cap.** With RE at 0.75x of load, even 4 GWh of storage stalls near 73%.
    Hitting 90%+ means oversizing RE, which then curtails 17–46% of its output. The real decision is how to
@@ -83,8 +84,8 @@ matched hour by hour), 4h battery, ₹ figures use this repo's break-even capaci
    reaches only ≈ 71% in this synthetic test. It is a secondary-source figure with no stated definition of
    "24x7"; treat it as unverified.
 3. **Demand-charge shaving is weak.** Data-centre load is almost flat, so there is little peak to shave.
-4. **Pure behind-the-meter arbitrage needs a large spread.** A 2h battery must capture ₹6.5/kWh at one cycle
-   a day, ₹3.3 at two (₹4.9 and ₹2.5 with VGF) on every discharged kWh. State ToD spreads are usually smaller;
+4. **Pure behind-the-meter arbitrage needs a large spread.** A 2h battery must capture ₹9.2/kWh at one cycle
+   a day, ₹4.6 at two (₹7.3 and ₹3.6 with VGF) on every discharged kWh. State ToD spreads are usually smaller;
    I found no state tariff schedule, so this is a threshold to compare against, not a conclusion.
 5. **UPS-class storage is small.** 15 minutes of ride-through at 140 MW is ≈ 41 MWh, about 15% of a 2h
    battery of equal power. It adds resilience value but will not carry a project.
@@ -95,7 +96,7 @@ matched hour by hour), 4h battery, ₹ figures use this repo's break-even capaci
 |---|---|---|---|
 | 1 | Firm renewable supply for hourly CFE (FDRE plus BESS) at hyperscale campuses | operator statement (STT GDC, evening-peak FDRE+BESS from CY2026); model above | sourced + modelled |
 | 2 | Co-locate storage at Vizag, Jamnagar, Dholera, Mumbai-Pune where RE, tendering and campuses overlap | Invest India hub map; tender table | sourced |
-| 3 | Data centre as capacity-charge offtaker, replacing a discom: bankable 2h tariff ≈ ₹4.0 lakh/MW/month vs ≈ ₹2.3–2.4 discoms pay; works out at roughly ₹0.15–1.0/kWh of load at 90% CFE | model | modelled, assumption-heavy |
+| 3 | Data centre as capacity-charge offtaker, replacing a discom: bankable 2h tariff ≈ ₹5.6 lakh/MW/month vs ≈ ₹2.3–2.4 discoms bid; works out at roughly ₹0.2–1.4/kWh of load at 90% CFE | model | modelled, assumption-heavy |
 | 4 | Resilience: UPS augmentation and diesel-generator avoidance | SBI notes on-site solar and storage in hyperscale design; ride-through maths | qualitative |
 | 5 | Grid services and demand response from campus storage | secondary sources disagree on whether market rules recognise it | uncertain |
 | 6 | Financing angle: IREDA treats data-centre offtake as "third party", needing 2 quarters of DSRA instead of 1, so the lender view is worse than for SECI/NTPC offtake unless a rated hyperscaler or parent guarantee changes the credit | IREDA norms | sourced inference |

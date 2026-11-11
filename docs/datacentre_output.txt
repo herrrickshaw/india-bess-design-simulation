@@ -13,26 +13,26 @@ solar 400 + wind 250 MW (RE energy = 1.22x load): CFE with no battery 77.2%
      450 MWh: CFE 87.4%  curtailed 27.0%  303 cycles/yr
     1000 MWh: CFE 95.3%  curtailed 19.3%  241 cycles/yr
     2000 MWh: CFE 97.3%  curtailed 17.4%  134 cycles/yr
-   90% CFE: 586 MWh / 146 MW, capex Rs 689 cr, adds Rs 0.98/kWh to the DC's energy cost (VGF: Rs 0.74)
-   95% CFE: 958 MWh / 240 MW, capex Rs 1,127 cr, adds Rs 1.60/kWh to the DC's energy cost (VGF: Rs 1.20)
+   90% CFE: 586 MWh / 146 MW, capex Rs 1,003 cr, adds Rs 1.42/kWh to the DC's energy cost (VGF: Rs 1.10)
+   95% CFE: 958 MWh / 240 MW, capex Rs 1,642 cr, adds Rs 2.33/kWh to the DC's energy cost (VGF: Rs 1.79)
 
 solar 500 + wind 300 MW (RE energy = 1.50x load): CFE with no battery 82.3%
      450 MWh: CFE 91.4%  curtailed 38.0%  270 cycles/yr
     1000 MWh: CFE 98.1%  curtailed 32.8%  210 cycles/yr
     2000 MWh: CFE 99.9%  curtailed 31.3%  117 cycles/yr
-   90% CFE: 371 MWh / 93 MW, capex Rs 436 cr, adds Rs 0.62/kWh to the DC's energy cost (VGF: Rs 0.47)
-   95% CFE: 690 MWh / 172 MW, capex Rs 811 cr, adds Rs 1.15/kWh to the DC's energy cost (VGF: Rs 0.87)
+   90% CFE: 371 MWh / 93 MW, capex Rs 635 cr, adds Rs 0.90/kWh to the DC's energy cost (VGF: Rs 0.69)
+   95% CFE: 690 MWh / 172 MW, capex Rs 1,182 cr, adds Rs 1.67/kWh to the DC's energy cost (VGF: Rs 1.29)
 
 solar 600 + wind 400 MW (RE energy = 1.89x load): CFE with no battery 88.3%
      450 MWh: CFE 95.5%  curtailed 48.7%  211 cycles/yr
     1000 MWh: CFE 99.3%  curtailed 46.3%  146 cycles/yr
     2000 MWh: CFE 100.0%  curtailed 45.8%  77 cycles/yr
-   90% CFE: 87 MWh / 22 MW, capex Rs 103 cr, adds Rs 0.15/kWh to the DC's energy cost (VGF: Rs 0.11)
-   95% CFE: 409 MWh / 102 MW, capex Rs 481 cr, adds Rs 0.68/kWh to the DC's energy cost (VGF: Rs 0.51)
+   90% CFE: 87 MWh / 22 MW, capex Rs 150 cr, adds Rs 0.21/kWh to the DC's energy cost (VGF: Rs 0.16)
+   95% CFE: 409 MWh / 102 MW, capex Rs 700 cr, adds Rs 0.99/kWh to the DC's energy cost (VGF: Rs 0.76)
 
 == Spread a behind-the-meter battery must capture per discharged kWh ==
-  2h, 1.0 cycles/day: Rs 6.54/kWh (with VGF Rs 4.90)
-  2h, 1.5 cycles/day: Rs 4.36/kWh (with VGF Rs 3.26)
-  2h, 2.0 cycles/day: Rs 3.27/kWh (with VGF Rs 2.45)
+  2h, 1.0 cycles/day: Rs 9.21/kWh (with VGF Rs 7.25)
+  2h, 1.5 cycles/day: Rs 6.14/kWh (with VGF Rs 4.83)
+  2h, 2.0 cycles/day: Rs 4.61/kWh (with VGF Rs 3.62)
 
 UPS-class ride-through, 15 min at 140 MW: 41 MWh (vs ~280 MWh for a 2h grid battery of the same MW)

@@ -1,0 +1,23 @@
+== Model vs public anchors, INR crore per INSTALLED MWh ==
+2h: model 1.45 (delivered-MWh basis 1.84) | China EPC + Indian duty 1.46-1.53 | Indian turnkey 1.2-1.8 | CTUIL benchmark 0.8
+4h: model 1.35 (delivered-MWh basis 1.71) | China EPC + Indian duty 1.28-1.44 | Indian turnkey 1.2-1.8 | CTUIL benchmark 0.8
+
+Component split, 100 MW x 2h (INR crore): {'dc_block': 193.4, 'pcs_mv': 35.7, 'bos_epc': 122.8, 'grid_land': 17.1, 'total': 369.0}
+
+== Break-even and bankable 2h tariff by cost scenario (lakh/MW/month) ==
+scenario                                        cr/MWh  NPV b/e   +VGF  bankable   +VGF
+CTUIL benchmark                                   0.80     2.93   2.18      3.09   2.31
+China EPC low end (2h, 0.74 CNY/Wh + duty)        1.08     3.94   2.93      4.16   3.11
+Calibrated (model default)                        1.45     5.32   4.19      5.62   4.44
+Indian turnkey high end                           1.80     6.59   5.46      6.96   5.78
+
+== Installed capex (INR crore/MWh) each 2h award can just support (NPV at WACC) vs anchors ==
+  NVVN-2026-02               tariff  1.81 -> supports  0.49 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.45)
+  SECI-ODISHA-2026-03-C1     tariff  3.04 -> supports  0.41 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.35)
+  SECI-ODISHA-2026-03-C2     tariff  3.05 -> supports  0.42 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.35)
+  SECI-ODISHA-2026-03-C3     tariff  3.75 -> supports  0.51 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.35)
+  GUVNL-2026-08              tariff  2.32 -> supports  0.63 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.45)
+  WBSEDCL-2026-08            tariff  4.35 -> supports  0.59 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.35)
+  MSEDCL-2026-09-A           tariff  2.38 -> supports  0.65 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.45)
+  MSEDCL-2026-09-B           tariff  2.40 -> supports  0.66 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.45)
+  SJVN-2026-09               tariff  2.35 -> supports  0.64 cr/installed MWh (CTUIL 0.80, turnkey 1.2-1.8, model 1.45)

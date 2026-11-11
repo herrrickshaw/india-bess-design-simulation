@@ -31,11 +31,11 @@ class CostInputs:
     life_years: int = 15            # SOURCED: MSEDCL 15-yr agreements
     # --- capex (INR) ---
     fx_inr_per_usd: float = 95.5    # SOURCED (derived): JMK 2.38 lakh = USD 2,493 -> 95.5
-    dc_block_usd_per_kwh: float = 69.4   # SOURCED: SMM, 5 MWh container DC FOB, Sep 2026
-    landed_uplift: float = 0.15     # ASSUMPTION: freight+duty+insurance on DC block
-    pcs_mv_inr_per_kw: float = 3800.0    # ASSUMPTION: PCS + MV transformer + switchgear
-    bos_epc_inr_per_kwh: float = 600.0   # ASSUMPTION: civil, EMS, fire, EPC margin
-    grid_land_inr_lakh_per_mw: float = 15.0  # ASSUMPTION: bay, line, land
+    dc_block_usd_per_kwh: float = 69.4   # SOURCED: SMM, 5 MWh container DC FOB, Sep 2026; cross-checked: CNESA H1-2026 2h/4h system bids imply $67.7/kWh
+    landed_uplift: float = 0.15     # 10% BCD (CBIC clarification Oct 2026, Mercom) + ~1% SWS + ~4% freight/insurance/clearing (SWS, logistics: ASSUMPTION); IGST treated as creditable
+    pcs_mv_inr_per_kw: float = 3570.0    # DERIVED: CNESA H1-2026 2h/4h system bids -> $32.5/kW power-related part, x INR 95.5, x1.15 landed
+    bos_epc_inr_per_kwh: float = 4840.0  # DERIVED: China EPC (TrendForce Jul/Oct 2026 mid) less CNESA system price; India adjustment factor 1.0 is an ASSUMPTION
+    grid_land_inr_lakh_per_mw: float = 17.1  # DERIVED: same China EPC-less-system power-related residual ($18/kW)
     # --- opex ---
     opex_pct_capex: float = 0.015   # ASSUMPTION: O&M + insurance, yr-1 share of capex
     opex_escalation: float = 0.03   # ASSUMPTION
@@ -46,7 +46,7 @@ class CostInputs:
     # --- finance ---
     debt_share: float = 0.70        # ASSUMPTION
     debt_rate: float = 0.095        # ASSUMPTION
-    equity_return: float = 0.14     # ASSUMPTION
+    equity_return: float = 0.15     # ASSUMPTION: lower end of the 15-20% lenders reportedly want (secondary press, IEEFA/JMK coverage)
     tax_rate: float = 0.2517        # SOURCED: Indian corporate rate (new regime, incl. cess)
     vgf_inr_lakh_per_mwh: float = 0.0  # PIB: Rs 46 lakh/MWh cap or 30% of capex, whichever lower
 
@@ -79,6 +79,7 @@ def capex_breakdown(c: CostInputs) -> dict:
     out["total"] = sum(out.values())
     out["dc_mwh_nameplate"] = dc_mwh
     out["per_poi_mwh_crore"] = out["total"] / (c.mw * c.duration_h)
+    out["per_nameplate_mwh_crore"] = out["total"] / dc_mwh      # comparable to market quotes and CTUIL (per installed MWh)
     return out
 
 

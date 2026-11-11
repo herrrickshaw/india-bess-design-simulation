@@ -29,25 +29,33 @@ dividing by duration: Odisha 4h ≈ 0.76–0.94 lakh/MWh/month, GUVNL/MSEDCL 2h 
 bids are *cheaper per MWh* and the headline gap (3.0 vs 2.3) is mostly duration. JMK also reports
 57% of September's issuance was re-tendered, and Mercom says only ~9 GW of 28 GW tendered in H1 2026 was auctioned.
 
-## 2. Do the tariffs close? (model)
+## 2. Do the tariffs close? (model, calibrated: see [CALIBRATION.md](CALIBRATION.md))
 
-Inputs: DC block $69.4/kWh (SMM, Sep 2026 container FOB), ₹95.5/$, 70:30 debt at 9.5%, 14% equity,
-15-year term, procurer supplies charging energy.
+Inputs are anchored to public prices (no vendor quotes were available): DC block $69.4/kWh (SMM, Sep 2026),
+China EPC bids plus Indian duty, ₹95.5/$, IREDA-band debt at 9.5%, 15% equity hurdle, 15-year term,
+procurer supplies charging energy. All capex figures below are **per installed MWh**, the basis market
+prices and CTUIL use; the model's per-delivered-MWh figure is about 27% higher.
 
 | Check | Result |
 |---|---|
-| Tariff-implied supportable capex, GUVNL/MSEDCL/SJVN | ≈ ₹0.80–0.83 cr/MWh vs CTUIL benchmark ₹0.80 cr/MWh |
-| Bottom-up capex at Sep-2026 prices, 2h | ≈ ₹1.31 cr/MWh |
-| Break-even 2h tariff, no VGF | 3.78 lakh/MW/month (2h awards are 37–39% below) |
-| Break-even 2h tariff, VGF ₹46 lakh/MWh | 2.83 (2h awards still 15–18% below) |
-| DC block price each 2h award implies | ≈ $34–36/kWh without VGF; ≈ $54–55/kWh with VGF |
+| Model capex, 2h / 4h | ₹1.45 / ₹1.35 crore per installed MWh, inside the China-EPC-plus-duty range (1.46–1.53 / 1.28–1.44) and Indian turnkey guides (1.2–1.8) |
+| CTUIL benchmark (Sep 2026) | ₹0.80 crore/MWh, about 45% below the market-calibrated cost |
+| Break-even 2h tariff, no VGF | **5.32** lakh/MW/month; 2h awards (2.32–2.40) are 55–56% below it |
+| Break-even 2h tariff, VGF ₹46 lakh/MWh | 4.19; awards still 43–45% below |
+| Break-even 4h tariff | 9.92 (VGF 7.65); 4h awards are 56–69% below |
+| Capex each 2h award can just support (NPV at WACC) | ₹0.63–0.66 crore per installed MWh, below even CTUIL's 0.80 |
 
-Reading: the finance layer reproduces CTUIL's benchmark independently, which is the check I trust most.
-The conclusion that 2026 awards close only with VGF plus cheaper-than-assumed equipment (or thin returns) follows from
-**my assumed** landed uplift (15%), PCS (₹3,800/kW) and BoS (₹600/kWh). Those are placeholders, not quotes;
-move them and the verdict moves. It is consistent with IEEFA/JMK's view (in local research corpus) that a large
-share of 2025 awards may be unviable, but this repo does not prove it. Oriana's ~₹324 cr VGF on its MSEDCL
-share is the one concrete subsidy datapoint.
+**Correction to an earlier version of this note.** It said the tariff-implied capex (≈ ₹0.80–0.83 crore/MWh)
+matched CTUIL's benchmark and called that "the check I trust most". That compared a per-*delivered*-MWh figure with a
+per-*installed*-MWh benchmark. On a like-for-like basis the awards support about ₹0.64 crore per installed MWh, 20%
+below CTUIL's benchmark and well under half the market-calibrated cost. The earlier agreement was an artefact.
+
+**Reading.** Two cost worlds disagree: public price indices say about ₹1.45 crore/MWh; CTUIL's benchmark and the
+awards imply ₹0.8 or less. The awards are viable only if developers' real cost is near CTUIL's figure and VGF
+is received (with VGF the 2h break-even at ₹0.80 crore/MWh is 2.18, under the 2.3–2.4 bids), or if bidders accept
+sub-hurdle returns. This matches IEEFA/JMK's view that much of 2025's pricing may be unviable, but a model on
+public indices cannot settle it; actual quotes can (use `data/vendor_quotes_template.csv`). Oriana's ~₹324 cr
+VGF on its MSEDCL share is the one concrete subsidy datapoint.
 
 ## 3. PIB (primary, read directly)
 

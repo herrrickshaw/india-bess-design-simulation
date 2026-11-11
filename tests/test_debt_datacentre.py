@@ -98,3 +98,70 @@ def test_required_spread_falls_with_cycles_and_vgf():
 
 def test_ups_energy():
     assert abs(dc.ups_energy_mwh(60, 15, 1.0, 1.0) - 15.0) < 1e-9
+
+
+# ---- calibration ----
+import pandas as pd
+from bess_sim import calibration as cal
+
+
+def test_model_sits_inside_public_anchors():
+    for d in (2.0, 4.0):
+        r = cal.market_check(d)
+        assert r["within_china_range"] and r["within_india_range"]
+
+
+def test_installed_basis_is_lower_than_delivered_basis():
+    r = cal.market_check(2.0)
+    assert r["model_cr_per_installed_mwh"] < r["model_cr_per_delivered_mwh"]
+
+
+def test_scaling_hits_target_installed_capex():
+    c = cal.scaled_to_installed_capex(cost.CostInputs(), 0.80)
+    assert abs(cost.capex_breakdown(c)["per_nameplate_mwh_crore"] - 0.80) < 1e-9
+
+
+def test_cheaper_capex_lowers_breakeven():
+    hi = cost.breakeven_tariff(cal.scaled_to_installed_capex(cost.CostInputs(), 1.8))
+    lo = cost.breakeven_tariff(cal.scaled_to_installed_capex(cost.CostInputs(), 0.8))
+    assert lo < hi
+
+
+def test_tariff_implied_capex_monotone_and_bankable_capex_below_it():
+    a = cal.tariff_implied_installed_capex(2.0, 2.0)
+    b = cal.tariff_implied_installed_capex(2.0, 3.0)
+    assert b > a > 0
+    # DSCR-bankable capex also rises with tariff; it can exceed the NPV-supportable capex because
+    # the equity-return hurdle, not the DSCR test, is what binds in this model
+    assert cal.installed_capex_for_bankability(2.0, 3.0) > cal.installed_capex_for_bankability(2.0, 2.0) > 0
+
+
+def test_china_conversion_units():
+    lo, hi = cal.china_epc_in_inr_cr_per_mwh(2.0, duty_on_system=False)
+    # 1.00 CNY/Wh at 7.13 CNY/USD and INR 95.5/USD = INR 13,394/kWh = 1.34 crore/MWh
+    assert abs(lo - 1.339) < 0.01
+
+
+def test_quote_template_loads_unchanged_and_overrides_work(tmp_path):
+    base, changes = cal.cost_inputs_from_quotes("data/vendor_quotes_template.csv")
+    assert changes == [] and base == cost.CostInputs()
+    f = tmp_path / "q.csv"
+    pd.DataFrame([
+        {"item": "dc_block", "value": 60, "unit": "USD/kWh", "vendor": "A", "date": "2026-11", "notes": ""},
+        {"item": "dc_block", "value": 64, "unit": "USD/kWh", "vendor": "B", "date": "2026-11", "notes": ""},
+        {"item": "bos_epc", "value": 3000, "unit": "INR/kWh", "vendor": "A", "date": "2026-11", "notes": ""},
+    ]).to_csv(f, index=False)
+    c, ch = cal.cost_inputs_from_quotes(f)
+    assert c.dc_block_usd_per_kwh == 62 and c.bos_epc_inr_per_kwh == 3000
+    assert {x["item"]: x["n_quotes"] for x in ch} == {"dc_block": 2, "bos_epc": 1}
+
+
+def test_quote_loader_rejects_wrong_unit_and_unknown_item(tmp_path):
+    f = tmp_path / "q.csv"
+    pd.DataFrame([{"item": "dc_block", "value": 60, "unit": "INR/kWh", "vendor": "A", "date": "", "notes": ""}]).to_csv(f, index=False)
+    import pytest
+    with pytest.raises(ValueError):
+        cal.cost_inputs_from_quotes(f)
+    pd.DataFrame([{"item": "mystery", "value": 1, "unit": "x", "vendor": "A", "date": "", "notes": ""}]).to_csv(f, index=False)
+    with pytest.raises(ValueError):
+        cal.cost_inputs_from_quotes(f)
