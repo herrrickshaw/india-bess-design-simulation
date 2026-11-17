@@ -1,0 +1,85 @@
+== Bottom-up capex, 100 MW x 2h (INR crore) ==
+  dc_block                 193.382
+  pcs_mv                    35.700
+  bos_epc                  122.800
+  grid_land                 17.100
+  total                    368.982
+  dc_mwh_nameplate         253.720
+  per_poi_mwh_crore          1.845
+  per_nameplate_mwh_crore     1.454
+  CTUIL benchmark (crore/MWh): 0.80
+
+== Awarded tenders vs model (no VGF) ==
+ min_dscr  avg_dscr  equity_irr_pct  bankable_at_70pct  max_gearing_pct  dsra_cr_per_100mw              tender_id    date  duration_h  tariff  tariff_per_mwh_cap  inr_per_kwh_2cyc  inr_per_kwh_1.5cyc  model_breakeven  gap_vs_breakeven_pct  model_capex_cr_per_mwh  supportable_capex_cr_per_mwh
+     0.28      0.33           -29.8              False               16                9.7           NVVN-2026-02 2026-02         2.0    1.81               0.905              1.49                1.98             5.32                 -66.0                   1.845                         0.627
+     0.22      0.27           -33.6              False               13               18.0 SECI-ODISHA-2026-03-C1 2026-03         4.0    3.04               0.760              1.25                1.67             9.92                 -69.4                   1.713                         0.525
+     0.22      0.27           -33.5              False               13               18.0 SECI-ODISHA-2026-03-C2 2026-03         4.0    3.05               0.762              1.25                1.67             9.92                 -69.3                   1.713                         0.527
+     0.34      0.40           -25.8              False               20               18.0 SECI-ODISHA-2026-03-C3 2026-03         4.0    3.75               0.938              1.54                2.05             9.92                 -62.2                   1.713                         0.648
+     0.44      0.50           -20.6              False               26                9.7          GUVNL-2026-08 2026-08         2.0    2.32               1.160              1.91                2.54             5.32                 -56.4                   1.845                         0.804
+     0.44      0.50           -20.3              False               25               18.0        WBSEDCL-2026-08 2026-08         4.0    4.35               1.087              1.79                2.38             9.92                 -56.1                   1.713                         0.751
+     0.46      0.52           -19.6              False               27                9.7       MSEDCL-2026-09-A 2026-09         2.0    2.38               1.190              1.96                2.61             5.32                 -55.3                   1.845                         0.825
+     0.46      0.53           -19.3              False               27                9.7       MSEDCL-2026-09-B 2026-09         2.0    2.40               1.200              1.97                2.63             5.32                 -54.9                   1.845                         0.832
+     0.45      0.51           -20.1              False               26                9.7           SJVN-2026-09 2026-09         2.0    2.35               1.175              1.93                2.58             5.32                 -55.9                   1.845                         0.814
+
+== Same, with VGF Rs 46 lakh/MWh ==
+             tender_id  tariff  model_breakeven  gap_vs_breakeven_pct
+          NVVN-2026-02    1.81             4.19                 -56.8
+SECI-ODISHA-2026-03-C1    3.04             7.65                 -60.3
+SECI-ODISHA-2026-03-C2    3.05             7.65                 -60.1
+SECI-ODISHA-2026-03-C3    3.75             7.65                 -51.0
+         GUVNL-2026-08    2.32             4.19                 -44.6
+       WBSEDCL-2026-08    4.35             7.65                 -43.1
+      MSEDCL-2026-09-A    2.38             4.19                 -43.2
+      MSEDCL-2026-09-B    2.40             4.19                 -42.7
+          SJVN-2026-09    2.35             4.19                 -43.9
+
+== Break-even 2h tariff vs DC block price (USD/kWh) ==
+   45.0 ->  4.31 lakh/MW/mo, capex 1.505 cr/MWh
+   55.0 ->  4.72 lakh/MW/mo, capex 1.644 cr/MWh
+   60.0 ->  4.93 lakh/MW/mo, capex 1.714 cr/MWh
+   69.4 ->  5.32 lakh/MW/mo, capex 1.845 cr/MWh
+   80.0 ->  5.77 lakh/MW/mo, capex 1.993 cr/MWh
+
+LCOS at 1.5 and 2 cycles/day (INR/kWh): 6.14 4.61 | PIB: 2.8 and 2.1
+
+== Lender view at each awarded tariff, no VGF (70% gearing, 12y tenor, 1y moratorium) ==
+             tender_id  tariff  min_dscr  avg_dscr  equity_irr_pct  bankable_at_70pct  max_gearing_pct  dsra_cr_per_100mw
+          NVVN-2026-02    1.81      0.28      0.33           -29.8              False               16                9.7
+SECI-ODISHA-2026-03-C1    3.04      0.22      0.27           -33.6              False               13               18.0
+SECI-ODISHA-2026-03-C2    3.05      0.22      0.27           -33.5              False               13               18.0
+SECI-ODISHA-2026-03-C3    3.75      0.34      0.40           -25.8              False               20               18.0
+         GUVNL-2026-08    2.32      0.44      0.50           -20.6              False               26                9.7
+       WBSEDCL-2026-08    4.35      0.44      0.50           -20.3              False               25               18.0
+      MSEDCL-2026-09-A    2.38      0.46      0.52           -19.6              False               27                9.7
+      MSEDCL-2026-09-B    2.40      0.46      0.53           -19.3              False               27                9.7
+          SJVN-2026-09    2.35      0.45      0.51           -20.1              False               26                9.7
+
+== Same, with VGF Rs 46 lakh/MWh ==
+             tender_id  tariff  min_dscr  avg_dscr  equity_irr_pct  bankable_at_70pct  max_gearing_pct  dsra_cr_per_100mw
+          NVVN-2026-02    1.81      0.37      0.45           -22.9              False               22                7.3
+SECI-ODISHA-2026-03-C1    3.04      0.30      0.37           -26.5              False               17               13.2
+SECI-ODISHA-2026-03-C2    3.05      0.30      0.38           -26.3              False               18               13.2
+SECI-ODISHA-2026-03-C3    3.75      0.46      0.54           -17.9              False               27               13.2
+         GUVNL-2026-08    2.32      0.58      0.67           -12.9              False               34                7.3
+       WBSEDCL-2026-08    4.35      0.60      0.69           -12.0              False               35               13.2
+      MSEDCL-2026-09-A    2.38      0.61      0.69           -11.9              False               36                7.3
+      MSEDCL-2026-09-B    2.40      0.62      0.70           -11.6              False               36                7.3
+          SJVN-2026-09    2.35      0.60      0.68           -12.4              False               35                7.3
+
+== Tariff a lender AND sponsor would need (lakh/MW/month) ==
+  2h no VGF: DSCR-only 5.09 | equity-IRR hurdle 5.62 | binding: equity IRR
+  2h VGF   : DSCR-only 4.02 | equity-IRR hurdle 4.44 | binding: equity IRR
+  4h no VGF: DSCR-only 9.48 | equity-IRR hurdle 10.49 | binding: equity IRR
+  4h VGF   : DSCR-only 7.39 | equity-IRR hurdle 8.13 | binding: equity IRR
+
+== Total installed capex (INR crore per installed MWh) at which each award passes DSCR at 70% gearing ==
+   (calibrated model: 1.45 at 2h / 1.35 at 4h; CTUIL benchmark 0.80; Indian turnkey 1.2-1.8)
+  NVVN-2026-02               no VGF  0.52 | VGF  0.69
+  SECI-ODISHA-2026-03-C1     no VGF  0.43 | VGF  0.57
+  SECI-ODISHA-2026-03-C2     no VGF  0.43 | VGF  0.58
+  SECI-ODISHA-2026-03-C3     no VGF  0.53 | VGF  0.71
+  GUVNL-2026-08              no VGF  0.66 | VGF  0.88
+  WBSEDCL-2026-08            no VGF  0.62 | VGF  0.82
+  MSEDCL-2026-09-A           no VGF  0.68 | VGF  0.91
+  MSEDCL-2026-09-B           no VGF  0.69 | VGF  0.91
+  SJVN-2026-09               no VGF  0.67 | VGF  0.90

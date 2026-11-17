@@ -1,0 +1,10 @@
+item,value,unit,vendor,date,notes
+dc_block,,USD/kWh,,,"FOB per NAMEPLATE kWh; state Incoterm, cell chemistry, warranty (years, throughput, end-of-warranty SOH)"
+pcs_mv,,INR/kW,,,"PCS + MV transformer + switchgear, delivered and duty-paid (state whether GST is excluded)"
+bos_epc,,INR/kWh,,,"Civil, EMS/SCADA, installation, commissioning, EPC margin; per nameplate kWh; exclude interconnection"
+grid_land,,INR lakh/MW,,,"Bay, line, land, CTU/STU charges not otherwise recovered"
+landed_uplift,,fraction,,,"Customs duty + freight + insurance + clearing on the DC block as a fraction of FOB"
+opex_pct_capex,,fraction,,,"Year-1 O&M + insurance + land lease as a fraction of capex (quote the O&M contract and the insurance premium separately in notes)"
+debt_rate,,fraction,,,"From a lender term sheet"
+debt_share,,fraction,,,"From a lender term sheet"
+fx_inr_per_usd,,INR/USD,,,"Rate used in the quote"
