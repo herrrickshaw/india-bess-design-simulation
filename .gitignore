@@ -6,3 +6,5 @@ data/raw_pib/*.html
 data/raw_*/*.pdf
 data/raw_lending/
 data/raw_datacentre/
+coverage.xml
+.coverage
