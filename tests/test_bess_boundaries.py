@@ -303,3 +303,47 @@ def test_max_gearing_is_the_boundary_of_lender_acceptance():
     from dataclasses import replace
     assert debt.lender_view(c, replace(t, gearing=g - 0.01), 2.0)["meets_dscr"]
     assert not debt.lender_view(c, replace(t, gearing=g + 0.02), 2.0)["meets_dscr"]
+
+
+# ------------------------------- mutation-driven additions -------------------------------
+
+def test_peak_shave_recharge_headroom_is_grossed_up_by_rte():
+    x = np.full((1, 24), 100.0)
+    x[0, 0] = 110.0                      # 10 MWh must be discharged
+    x[0, 1] = 85.0                       # 15 MWh of headroom under a 100 MW cap
+    assert sizing.size_for_peak_shave(x, 100.0, rte=0.5)["recharge_feasible"] is False   # needs 20
+    assert sizing.size_for_peak_shave(x, 100.0, rte=1.0)["recharge_feasible"] is True    # needs 10
+
+
+def test_peak_shave_headroom_exactly_equal_to_need_is_feasible():
+    x = np.full((1, 24), 100.0)
+    x[0, 0] = 110.0
+    x[0, 1] = 90.0
+    assert sizing.size_for_peak_shave(x, 100.0, rte=1.0)["recharge_feasible"] is True
+
+
+def test_arbitrage_charge_loss_uses_sqrt_rte_each_way():
+    prices = np.array([[1.0] * 12 + [5.0] * 12])
+    r = dispatch.simulate_arbitrage(prices, mw=10.0, duration_h=2.0, rte=0.64, availability=1.0)
+    # eta = 0.8 each way: store 20 MWh (charge 25 @ 1000), deliver 16 @ 5000 -> 80,000 - 25,000 = 55,000 / day
+    assert r["annual_revenue_inr_lakh_per_mw"] == pytest.approx(55_000 * 365 / 10 / 1e5)
+
+
+def test_cfe_charge_limited_by_battery_energy_and_loss():
+    load = np.array([10.0, 10.0])
+    re = np.array([20.0, 0.0])
+    r = datacentre.cfe_score(load, re, bess_mw=10.0, bess_mwh=4.0, rte=0.64)
+    # charge min(10, 10, 4/0.8 = 5) = 5 -> soc 4.0 -> discharge min(10, 10, 4.0*0.8) = 3.2
+    assert r["cfe"] == pytest.approx((10 + 3.2) / 20)
+
+
+def test_dc_load_cooling_bump_is_four_percent():
+    load = datacentre.dc_load(10.0, pue=1.0, days=200)
+    hourly = load.reshape(200, 24).mean(axis=0)
+    assert hourly.max() / hourly.min() == pytest.approx(1.04 / 0.96, rel=0.01)
+
+
+def test_bankability_search_ranges_cover_high_tariffs():
+    c, t = cost.CostInputs(), debt.DebtTerms()
+    assert 100.0 < debt.dc_price_for_bankability(c, t, 8.0) < 200.0
+    assert cal.installed_capex_for_bankability(2.0, 8.0) > 1.0
